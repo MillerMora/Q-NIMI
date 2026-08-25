@@ -7,8 +7,8 @@
 
 A continuación se describe la organización del proyecto, para que cualquier
 desarrollador que se una pueda ubicarse rápidamente:
-
-Q-NIMI
+```
+Q-NIMI/
 ├── backend
 ├── Frontend
 │   ├── assets
@@ -19,7 +19,7 @@ Q-NIMI
 │       └── js
 ├── index.html
 └── README.md
-
+```
 - **backend/** — Lógica del servidor, rutas, controladores y conexión con la base de datos.
 
 - **Frontend/** — Todo el código del lado del cliente (lo que el usuario ve y con lo que interactúa).
