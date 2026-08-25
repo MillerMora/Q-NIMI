@@ -1,0 +1,410 @@
+/* --------------------------------------------------------------------------
+   1. VARIABLES DE DISEÑO 
+   Centralizamos aquí toda la paleta y tipografía para que sea fácil
+   ajustarla más adelante sin tener que buscar valores repetidos.
+   -------------------------------------------------------------------------- */
+:root {
+    /* Colores de fondo: tonos cálidos y neutros, no blancos puros
+     (el blanco puro puede resultar deslumbrante para algunos niños) */
+    --color-bg: #FAF6ED;
+    /* crema suave, fondo principal */
+    --color-bg-alt: #EAF4F1;
+    /* menta muy pálido, para alternar secciones */
+    --color-bg-card: #FFFFFF;
+    /* blanco solo para tarjetas puntuales */
+
+    /* Colores principales de marca */
+    --color-primary: #4E8098;
+    /* azul petróleo suave: confianza, calma */
+    --color-primary-dark: #386577;
+    /* variante oscura para hover/estados */
+    --color-secondary: #F2B84B;
+    /* amarillo mostaza cálido: botones de acción */
+    --color-secondary-dark: #D89B2E;
+    --color-accent: #E4756B;
+    /* coral suave: acentos puntuales, no dominante */
+
+    /* Colores de texto (evitamos negro puro, es muy duro visualmente) */
+    --color-text: #33404D;
+    --color-text-soft: #5C6B78;
+    --color-text-inverso: #FFFFFF;
+
+    /* Bordes y sombras suaves, nada de sombras muy marcadas */
+    --color-border: #DCE7E4;
+    --sombra-suave: 0 4px 14px rgba(51, 64, 77, 0.08);
+
+    /* Tipografía */
+    --fuente-titulos: 'Baloo 2', system-ui, sans-serif;
+    /* redondeada, amigable */
+    --fuente-texto: 'Lexend', system-ui, sans-serif;
+    /* alta legibilidad */
+
+    /* Radios de borde: todo redondeado para transmitir cercanía y suavidad */
+    --radio-suave: 16px;
+    --radio-boton: 999px;
+    /* botones tipo "pastilla", fáciles de identificar */
+
+    /* Espaciados reutilizables */
+    --espacio-seccion: clamp(48px, 8vw, 96px);
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET Y BASE
+   Ajustes mínimos para partir de un comportamiento consistente
+   entre navegadores.
+   -------------------------------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    /* desplazamiento suave al usar los enlaces del menú */
+}
+
+/* Respetamos si el usuario tiene activada la preferencia de "reducir movimiento",
+   muy importante en un público sensible a estímulos visuales */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+body {
+    font-family: var(--fuente-texto);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    font-size: 18px;
+    /* tamaño base más grande de lo habitual, mejora la lectura */
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--fuente-titulos);
+    color: var(--color-primary-dark);
+    line-height: 1.25;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Foco de teclado bien visible: fundamental para accesibilidad,
+   así cualquier persona que navegue con teclado sabe dónde está */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+.contenedor {
+    width: min(1100px, 92%);
+    margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   3. BARRA DE NAVEGACIÓN (navbar)
+   Fija arriba, con el logo a la izquierda, enlaces de secciones al centro
+   y accesos de "Iniciar sesión" / "Registrarse" a la derecha (estáticos).
+   -------------------------------------------------------------------------- */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.navbar__contenido {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 14px;
+}
+
+.navbar__marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar__logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.navbar__nombre {
+    font-family: var(--fuente-titulos);
+    font-size: 1.25rem;
+    color: var(--color-primary-dark);
+}
+
+.navbar__enlaces {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+}
+
+.navbar__enlaces a {
+    font-weight: 500;
+    padding: 6px 4px;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.navbar__enlaces a:hover,
+.navbar__enlaces a:focus-visible {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-secondary);
+}
+
+.navbar__acciones {
+    display: flex;
+    gap: 10px;
+}
+
+/* Botones base, reutilizados en toda la página */
+.boton {
+    display: inline-block;
+    font-family: var(--fuente-texto);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 26px;
+    border-radius: var(--radio-boton);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.boton:hover {
+    transform: translateY(-2px);
+    /* leve, nunca brusco */
+}
+
+.boton--primario {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+.boton--primario:hover {
+    background-color: var(--color-secondary-dark);
+}
+
+.boton--secundario {
+    background-color: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary-dark);
+}
+
+.boton--secundario:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverso);
+}
+
+/* --------------------------------------------------------------------------
+   4. HERO (sección de bienvenida con el eslogan)
+   -------------------------------------------------------------------------- */
+.hero {
+    padding-block: var(--espacio-seccion);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+}
+
+.hero__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 48px;
+}
+
+.hero__titulo {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin-bottom: 14px;
+}
+
+.hero__eslogan {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+    color: var(--color-accent);
+    margin-bottom: 18px;
+}
+
+.hero__texto {
+    color: var(--color-text-soft);
+    margin-bottom: 28px;
+    max-width: 46ch;
+}
+
+.hero__cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+/* Contenedor del "camino de niveles": el elemento visual distintivo
+   de la página. Representa literalmente el concepto del juego
+   (avanzar de nivel en nivel) con formas redondeadas y colores suaves. */
+.hero__camino {
+    display: flex;
+    justify-content: center;
+}
+
+.hero__camino svg {
+    width: 100%;
+    height: auto;
+    max-width: 380px;
+}
+
+/* --------------------------------------------------------------------------
+   5. SECCIONES DE CONTENIDO (Misión, Visión, Objetivos)
+   Todas comparten una estructura similar: título + texto,
+   alternando el color de fondo para separar visualmente cada bloque.
+   -------------------------------------------------------------------------- */
+.seccion {
+    padding-block: var(--espacio-seccion);
+}
+
+.seccion--alterna {
+    background-color: var(--color-bg-alt);
+}
+
+.seccion__cabecera {
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+    margin-bottom: 40px;
+}
+
+.seccion__titulo {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin-bottom: 10px;
+}
+
+.seccion__linea {
+    width: 64px;
+    height: 5px;
+    background-color: var(--color-secondary);
+    border-radius: var(--radio-boton);
+    margin: 0 auto 18px auto;
+}
+
+/* Misión y Visión en tarjetas lado a lado */
+.mv__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.tarjeta {
+    background-color: var(--color-bg-card);
+    border-radius: var(--radio-suave);
+    padding: 32px;
+    box-shadow: var(--sombra-suave);
+    border: 1px solid var(--color-border);
+}
+
+.tarjeta__icono {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    background-color: rgba(78, 128, 152, 0.12);
+}
+
+.tarjeta__titulo {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.tarjeta__texto {
+    color: var(--color-text-soft);
+}
+
+/* Objetivos: un único bloque de texto centrado, en tarjeta,
+   en lugar de varias tarjetas separadas */
+.objetivos__texto-contenedor {
+    max-width: 760px;
+    margin-inline: auto;
+    background-color: var(--color-bg-card);
+    border-radius: var(--radio-suave);
+    padding: 36px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--sombra-suave);
+}
+
+.objetivos__texto {
+    color: var(--color-text-soft);
+    text-align: center;
+    font-size: 1.05rem;
+}
+
+/* --------------------------------------------------------------------------
+   6. FOOTER
+   -------------------------------------------------------------------------- */
+.footer {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-inverso);
+    padding-block: 32px;
+    text-align: center;
+}
+
+.footer__eslogan {
+    font-family: var(--fuente-titulos);
+    margin-bottom: 6px;
+}
+
+.footer__copy {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVE
+   El público incluye niños que pueden usar tablets; simplificamos
+   el layout en pantallas pequeñas para mantener la claridad.
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+    .navbar__enlaces {
+        display: none;
+        /* en una siguiente iteración: menú hamburguesa */
+    }
+
+    .hero__grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero__texto {
+        margin-inline: auto;
+    }
+
+    .hero__cta {
+        justify-content: center;
+    }
+
+    .mv__grid {
+        grid-template-columns: 1fr;
+    }
+}

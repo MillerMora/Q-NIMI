@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q'NIMI | Aventura por niveles</title>
+    <meta name="description"
+        content="Proyecto educativo tipo videojuego por niveles, diseñado para niños con discapacidad cognitiva leve.">
+    <link rel="stylesheet" href="Frontend/views/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Lexend:wght@400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- NAVBAR - Barra de navegación fija en la parte superior.-->
+    <header class="navbar">
+        <div class="contenedor navbar__contenido">
+
+            <!-- Marca: logo + nombre del proyecto -->
+            <div class="navbar__marca">
+                <img src="Frontend/assets/Logo.jpeg" alt="Logotipo del proyecto QNIMI" class="navbar__logo">
+                <span class="navbar__nombre">Q'NIMI</span>
+            </div>
+
+            <!-- Enlaces internos: cada uno apunta a una sección diferente del sitio web -->
+            <nav aria-label="Navegación principal">
+                <ul class="navbar__enlaces">
+                    <li><a href="#">seccion1</a></li>
+                    <li><a href="#">seccion2</a></li>
+                    <li><a href="#">seccion3</a></li>
+                    <li><a href="#">seccion4</a></li>
+                </ul>
+            </nav>
+
+            <!-- Accesos de sesión: por ahora son botones estáticos (sin backend conectado) -->
+            <div class="navbar__acciones">
+                <a href="#" class="boton boton--secundario">Iniciar sesión</a>
+                <a href="#" class="boton boton--primario">Registrarse</a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Contenido principal de la pagina -->
+    <main>
+        <section class="hero">
+            <div class="contenedor hero__grid">
+
+                <div class="hero__contenido">
+                    <!-- Titulo principal aun no definido, se piensa poner aqui el eslogan del juego -->
+                    <h1 class="hero__titulo">Lorem ipsum dolor sit amet consectetur.</h1>
+
+                    <!-- Texto introductorio corto, también de relleno mientras se define el contenido definitivo del proyecto -->
+                    <p class="hero__texto">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua, un
+                        espacio pensado para acompañar a cada niño a su propio ritmo.
+                    </p>
+
+                    <!-- Botón principal: simula el acceso directo a jugar. Por ahorano lleva a ninguna vista real,pero su texto deja 
+                     claro que al presionarlo se entra al juego  -->
+                    <div class="hero__cta">
+                        <a href="#" class="boton boton--primario">Comienza tu aventura</a>
+                        <a href="#objetivos" class="boton boton--secundario">Más información</a>
+                    </div>
+                </div>
+
+                <!-- Elemento gráfico distintivo: representa un camino de niveles
+                (círculos numerados unidos por una línea curva punteada).
+                Se usa SVG en lugar de imagen para que cargue rápido y se
+                vea nítido en cualquier tamaño de pantalla. Se puede cambiar por una imagen o otra cosa si despues se requiere -->
+                <div class="hero__camino" aria-hidden="true">
+                    <svg viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M40 260 C 90 260, 60 180, 110 170 S 180 100, 150 70 S 230 40, 270 60" stroke="#4E8098"
+                            stroke-width="4" stroke-dasharray="2 14" stroke-linecap="round" />
+                        <circle cx="40" cy="260" r="26" fill="#F2B84B" />
+                        <text x="40" y="267" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="20"
+                            fill="#33404D">1</text>
+
+                        <circle cx="110" cy="170" r="26" fill="#E4756B" />
+                        <text x="110" y="177" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="20"
+                            fill="#FFFFFF">2</text>
+
+                        <circle cx="150" cy="70" r="26" fill="#4E8098" />
+                        <text x="150" y="77" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="20"
+                            fill="#FFFFFF">3</text>
+
+                        <circle cx="270" cy="60" r="30" fill="#F2B84B" />
+                        <text x="270" y="68" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="22"
+                            fill="#33404D">★</text>
+                    </svg>
+                </div>
+
+            </div>
+        </section>
+
+            <!--
+            MISIÓN Y VISIÓN
+            Se muestran juntas en tarjetas lado a lado porque son
+            contenidos cortos y conceptualmente relacionados.
+            Los párrafos son lorem ipsum: aún no ha
+            definido el texto final de misión y visión.-->
+        <section class="seccion seccion--alterna" id="mision">
+            <div class="contenedor">
+                <div class="seccion__cabecera">
+                    <h2 class="seccion__titulo">Misión y visión</h2>
+                    <div class="seccion__linea"></div>
+                </div>
+
+                <div class="mv__grid">
+
+                    <!-- Tarjeta de Misión -->
+                    <article class="tarjeta">
+                        <h3 class="tarjeta__titulo" id="mision-titulo">Misión</h3>
+                        <p class="tarjeta__texto">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat, brindando
+                            herramientas de aprendizaje accesibles para cada niño.
+                        </p>
+                    </article>
+
+                    <!-- Tarjeta de Visión -->
+                    <article class="tarjeta" id="vision">
+                        <h3 class="tarjeta__titulo">Visión</h3>
+                        <p class="tarjeta__texto">
+                            Duis aute irure dolor in reprehenderit in voluptate velit
+                            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                            occaecat cupidatat non proident, siendo referentes en
+                            educación inclusiva a través del juego.
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="seccion" id="objetivos">
+            <div class="contenedor">
+                <div class="seccion__cabecera">
+                    <h2 class="seccion__titulo">Nuestros objetivos</h2>
+                    <div class="seccion__linea"></div>
+                </div>
+
+                <!-- Objetivos -->
+                <div class="objetivos__texto-contenedor">
+                    <p class="objetivos__texto">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat, favoreciendo la
+                        comprensión a través de niveles progresivos, adaptando cada
+                        actividad al ritmo del niño y acompañando a familias y docentes
+                        con información clara sobre su progreso.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="contenedor">
+            <p class="footer__eslogan">"Cada nivel, un paso más cerca de ti."</p>
+            <p class="footer__copy">&copy; 2026 Q'NIMI. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
