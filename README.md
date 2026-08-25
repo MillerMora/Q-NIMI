@@ -9,11 +9,11 @@ A continuación se describe la organización del proyecto, para que cualquier
 desarrollador que se una pueda ubicarse rápidamente:
 ```
 Q-NIMI/
-├── backend
-├── Frontend
-│   ├── assets
+├── backend/
+├── Frontend/
+│   ├── assets/
 │   │   └── Logo.jpeg
-│   └── views
+│   └── views/
 │       ├── css
 │       │   └── styles.css
 │       └── js
