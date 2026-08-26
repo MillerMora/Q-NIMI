@@ -39,8 +39,8 @@
 
             <!-- Accesos de sesión: por ahora son botones estáticos (sin backend conectado) -->
             <div class="navbar__acciones">
-                <a href="#" class="boton boton--secundario">Iniciar sesión</a>
-                <a href="#" class="boton boton--primario">Registrarse</a>
+                <a href="#" class="boton boton--secundario" data-auth-open="login">Iniciar sesión</a>
+                <a href="#" class="boton boton--primario" data-auth-open="register">Registrarse</a>
             </div>
 
         </div>
@@ -165,6 +165,60 @@
 
     </main>
 
+    <!-- Modal reutilizable para iniciar sesion, registrarse y usar la camara. -->
+    <div class="modal" id="authModal" aria-hidden="true" role="dialog" aria-modal="true"
+        aria-labelledby="authTitle">
+        <div class="modal__contenido">
+            <!-- Cierra el modal sin enviar ningun formulario. -->
+            <button class="modal__cerrar" type="button" data-auth-close aria-label="Cerrar ventana">&times;</button>
+
+            <!-- Formulario visible por defecto para usuarios con una cuenta. -->
+            <div class="auth-panel" data-auth-panel="login">
+                <p class="auth-panel__eyebrow">Tu aventura continúa</p>
+                <h2 class="auth-panel__titulo" id="authTitle">Iniciar sesión</h2>
+                <p class="auth-panel__texto">Entra a Q'NIMI para continuar tu progreso.</p>
+                <form class="auth-form" id="loginForm">
+                    <label for="loginUser">Usuario</label>
+                    <input id="loginUser" name="usuario" type="text" autocomplete="username" placeholder="Escribe tu usuario" required>
+                    <label for="loginPassword">Contraseña</label>
+                    <input id="loginPassword" name="contraseña" type="password" autocomplete="current-password" placeholder="Escribe tu contraseña" required>
+                    <button class="boton boton--primario auth-form__submit" type="submit">Entrar</button>
+                </form>
+                <div class="auth-divider"><span>o</span></div>
+                <button class="boton boton--facial" type="button" data-face-start>Ingresar con reconocimiento facial</button>
+                <p class="auth-switch">¿No tienes cuenta? <button type="button" data-auth-switch="register">Registrarse</button></p>
+            </div>
+
+            <!-- Formulario alternativo para crear una cuenta nueva. -->
+            <div class="auth-panel" data-auth-panel="register" hidden>
+                <p class="auth-panel__eyebrow">Un espacio para crecer</p>
+                <h2 class="auth-panel__titulo" id="registerTitle">Registrarse</h2>
+                <p class="auth-panel__texto">Crea una cuenta para guardar cada logro.</p>
+                <form class="auth-form" id="registerForm">
+                    <label for="registerUser">Usuario</label>
+                    <input id="registerUser" name="usuario" type="text" autocomplete="username" placeholder="Elige un usuario" required>
+                    <label for="registerEmail">Correo electrónico</label>
+                    <input id="registerEmail" name="correo" type="email" autocomplete="email" placeholder="tu@email.com" required>
+                    <label for="registerPassword">Contraseña</label>
+                    <input id="registerPassword" name="contraseña" type="password" autocomplete="new-password" placeholder="Crea una contraseña" required>
+                    <button class="boton boton--primario auth-form__submit" type="submit">Crear cuenta</button>
+                </form>
+                <p class="auth-switch">¿Ya tienes cuenta? <button type="button" data-auth-switch="login">Iniciar sesión</button></p>
+            </div>
+
+            <!-- Panel de camara; JavaScript lo muestra al elegir reconocimiento facial. -->
+            <div class="face-panel" data-face-panel hidden>
+                <h2 class="auth-panel__titulo">Reconocimiento facial</h2>
+                <p class="auth-panel__texto" data-face-status>Permite el acceso a tu cámara para continuar.</p>
+                <video class="face-panel__video" data-face-video autoplay muted playsinline></video>
+                <div class="face-panel__acciones">
+                    <button class="boton boton--primario" type="button" data-face-scan>Reconocer rostro</button>
+                    <button class="boton boton--secundario" type="button" data-face-cancel>Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="footer">
         <div class="contenedor">
@@ -172,6 +226,9 @@
             <p class="footer__copy">&copy; 2026 Q'NIMI. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- Carga la logica de apertura, cambio de formularios y reconocimiento facial. -->
+    <script src="Frontend/views/js/autenticacion.js" defer></script>
 
 </body>
 
