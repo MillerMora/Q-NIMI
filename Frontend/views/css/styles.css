@@ -664,6 +664,23 @@ button:focus-visible {
 .tarjeta__texto {
     color: var(--color-text-soft);
 }
+/* --------------------------------------------------------------------------
+   OBJETIVOS EN GRID
+   Reemplaza el bloque de un solo párrafo por varias tarjetas que se
+   acomodan solas según el espacio disponible (auto-fit), quedando
+   responsive sin necesidad de media queries adicionales.
+   -------------------------------------------------------------------------- */
+.objetivos__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+.objetivos__tarjeta .tarjeta__texto {
+    text-align: center;
+}
 
 /* Objetivos: un único bloque de texto centrado, en tarjeta,
    en lugar de varias tarjetas separadas */
@@ -740,4 +757,80 @@ button:focus-visible {
     .face-panel__acciones .boton {
         flex-basis: 100%;
     }
+}
+
+/* --------------------------------------------------------------------------
+   PANTALLA DE CARGA / INICIO
+   Cubre toda la ventana con el logo y el nombre de la app mientras
+   el index termina de cargar; luego se desvanece con una transición.
+   -------------------------------------------------------------------------- */
+.pantalla-carga {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg);
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.pantalla-carga--oculta {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.pantalla-carga__contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 24px;
+}
+
+.pantalla-carga__logo {
+    width: clamp(72px, 18vw, 120px);
+    height: clamp(72px, 18vw, 120px);
+    border-radius: 20px;
+    object-fit: cover;
+    animation: pantalla-carga-latido 1.6s ease-in-out infinite;
+}
+
+.pantalla-carga__nombre {
+    font-family: var(--fuente-titulos);
+    color: var(--color-primary-dark);
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    animation: pantalla-carga-latido2 1.6s ease-in-out infinite;
+}
+
+/* min-height reserva el espacio del eslogan aunque esté vacío,
+   así el logo y el nombre no "saltan" de posición si luego se añade texto */
+.pantalla-carga__eslogan {
+    font-family: var(--fuente-titulos);
+    color: var(--color-accent);
+    font-size: clamp(0.95rem, 2.6vw, 1.1rem);
+    min-height: 1.4em;
+}
+
+@keyframes pantalla-carga-latido {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.30); }
+}
+@keyframes pantalla-carga-latido2 {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Respetamos otra vez la preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    .pantalla-carga__logo {
+        animation: none;
+    }
+}
+
+/* Evita el scroll de fondo mientras la pantalla de carga está activa */
+body.pantalla-carga-activa {
+    overflow: hidden;
 }
