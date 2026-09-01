@@ -15,8 +15,20 @@
         rel="stylesheet">
 </head>
 
-<body>
+<body class="pantalla-carga-activa">
+    <!-- PANTALLA DE CARGA -->
+    <!-- Se muestra primero, cubriendo toda la pantalla. El JS la desvanece
+     cuando el index ya está listo para mostrarse. -->
+    <div class="pantalla-carga" id="pantallaCarga" aria-hidden="true">
+        <div class="pantalla-carga__contenido">
+            <img src="Frontend/assets/Logo.jpeg" alt="Logotipo de Q'NIMI" class="pantalla-carga__logo">
+            <h1 class="pantalla-carga__nombre">Q'NIMI</h1>
 
+            <!-- Espacio reservado para el eslogan. Se deja vacío por ahora;
+             si más adelante se define uno, solo hay que escribirlo aquí. -->
+            <p class="pantalla-carga__eslogan" data-splash-eslogan></p>
+        </div>
+    </div>
     <!-- NAVBAR - Barra de navegación fija en la parte superior.-->
     <header class="navbar">
         <div class="contenedor navbar__contenido">
@@ -99,7 +111,7 @@
             </div>
         </section>
 
-            <!--
+        <!--
             MISIÓN Y VISIÓN
             Se muestran juntas en tarjetas lado a lado porque son
             contenidos cortos y conceptualmente relacionados.
@@ -118,10 +130,8 @@
                     <article class="tarjeta">
                         <h3 class="tarjeta__titulo" id="mision-titulo">Misión</h3>
                         <p class="tarjeta__texto">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat, brindando
-                            herramientas de aprendizaje accesibles para cada niño.
+                            Brindar una herramienta accesible que permita a las personas con discapacidad cognitiva
+                            desarrollar su estudio y aprendizaje a su propio ritmo.
                         </p>
                     </article>
 
@@ -129,10 +139,10 @@
                     <article class="tarjeta" id="vision">
                         <h3 class="tarjeta__titulo">Visión</h3>
                         <p class="tarjeta__texto">
-                            Duis aute irure dolor in reprehenderit in voluptate velit
-                            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                            occaecat cupidatat non proident, siendo referentes en
-                            educación inclusiva a través del juego.
+                            Ser una herramienta educativa innovadora, divertida y accesible, reconocida por
+                            transformar el aprendizaje de niños con dificultades cognitivas mediante experiencias
+                            interactivas, inclusivas y entretenidas, contribuyendo a su desarrollo y ayudándolos a
+                            alcanzar su máximo potencial.
                         </p>
                     </article>
 
@@ -149,16 +159,22 @@
                 </div>
 
                 <!-- Objetivos -->
-                <div class="objetivos__texto-contenedor">
-                    <p class="objetivos__texto">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                        nisi ut aliquip ex ea commodo consequat, favoreciendo la
-                        comprensión a través de niveles progresivos, adaptando cada
-                        actividad al ritmo del niño y acompañando a familias y docentes
-                        con información clara sobre su progreso.
-                    </p>
+                <div class="objetivos__grid">
+                    <article class="tarjeta objetivos__tarjeta">
+                        <p class="tarjeta__texto">
+                            Establecer una nueva forma de educación basada en el entretenimiento y el aprendizaje
+                            mediante juegos desarrollados para personas con discapacidad cognitiva, buscando
+                            ayudar a una parte importante de esta comunidad a alcanzar sus diferentes metas.
+                        </p>
+                    </article>
+
+                    <article class="tarjeta objetivos__tarjeta">
+                        <p class="tarjeta__texto">
+                            La aplicación también contará con un sistema de evaluación inicial mediante un quiz que
+                            permitirá identificar las necesidades y áreas de aprendizaje del usuario, con el objetivo de
+                            recomendar actividades y juegos adecuados.
+                        </p>
+                    </article>
                 </div>
             </div>
         </section>
@@ -166,8 +182,7 @@
     </main>
 
     <!-- Modal reutilizable para iniciar sesion, registrarse y usar la camara. -->
-    <div class="modal" id="authModal" aria-hidden="true" role="dialog" aria-modal="true"
-        aria-labelledby="authTitle">
+    <div class="modal" id="authModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="authTitle">
         <div class="modal__contenido">
             <!-- Cierra el modal sin enviar ningun formulario. -->
             <button class="modal__cerrar" type="button" data-auth-close aria-label="Cerrar ventana">&times;</button>
@@ -179,17 +194,22 @@
                 <p class="auth-panel__texto">Entra a Q'NIMI para continuar tu progreso.</p>
                 <form class="auth-form" id="loginForm">
                     <label for="loginUser">Usuario</label>
-                    <input id="loginUser" name="usuario" type="text" autocomplete="username" placeholder="Escribe tu usuario" required>
+                    <input id="loginUser" name="usuario" type="text" autocomplete="username"
+                        placeholder="Escribe tu usuario" required>
                     <label for="loginPassword">Contraseña</label>
-                    <input id="loginPassword" name="contraseña" type="password" autocomplete="current-password" placeholder="Escribe tu contraseña" required>
+                    <input id="loginPassword" name="contraseña" type="password" autocomplete="current-password"
+                        placeholder="Escribe tu contraseña" required>
                     <button class="boton boton--primario auth-form__submit" type="submit">Entrar</button>
                 </form>
                 <div class="login-opciones">
-                    <button class="boton boton--enlace" type="button" data-recover-password>Recuperar contraseña</button>
+                    <button class="boton boton--enlace" type="button" data-recover-password>Recuperar
+                        contraseña</button>
                 </div>
                 <div class="auth-divider"><span>o</span></div>
-                <button class="boton boton--facial" type="button" data-face-start>Ingresar con reconocimiento facial</button>
-                <p class="auth-switch">¿No tienes cuenta? <button type="button" data-auth-switch="register">Registrarse</button></p>
+                <button class="boton boton--facial" type="button" data-face-start>Ingresar con reconocimiento
+                    facial</button>
+                <p class="auth-switch">¿No tienes cuenta? <button type="button"
+                        data-auth-switch="register">Registrarse</button></p>
             </div>
 
             <!-- Formulario alternativo para crear una cuenta nueva. -->
@@ -199,16 +219,22 @@
                 <p class="auth-panel__texto">Crea una cuenta para guardar cada logro.</p>
                 <form class="auth-form" id="registerForm">
                     <label for="registerUser">Usuario</label>
-                    <input id="registerUser" name="usuario" type="text" autocomplete="username" placeholder="Elige un usuario" required>
+                    <input id="registerUser" name="usuario" type="text" autocomplete="username"
+                        placeholder="Elige un usuario" required>
                     <label for="registerEmail">Correo electrónico</label>
-                    <input id="registerEmail" name="correo" type="email" autocomplete="email" placeholder="tu@email.com" required>
+                    <input id="registerEmail" name="correo" type="email" autocomplete="email" placeholder="tu@email.com"
+                        required>
                     <label for="registerPassword">Contraseña</label>
-                    <input id="registerPassword" name="contraseña" type="password" autocomplete="new-password" placeholder="Crea una contraseña" required>
-                    <button class="boton boton--primario auth-form__submit" type="submit" data-create-account>Crear cuenta</button>
+                    <input id="registerPassword" name="contraseña" type="password" autocomplete="new-password"
+                        placeholder="Crea una contraseña" required>
+                    <button class="boton boton--primario auth-form__submit" type="submit" data-create-account>Crear
+                        cuenta</button>
                 </form>
                 <div class="auth-divider"><span>o</span></div>
-                <button class="boton boton--facial" type="button" data-face-start-register>Registrarse con reconocimiento facial</button>
-                <p class="auth-switch">¿Ya tienes cuenta? <button type="button" data-auth-switch="login">Iniciar sesión</button></p>
+                <button class="boton boton--facial" type="button" data-face-start-register>Registrarse con
+                    reconocimiento facial</button>
+                <p class="auth-switch">¿Ya tienes cuenta? <button type="button" data-auth-switch="login">Iniciar
+                        sesión</button></p>
             </div>
 
             <!-- Panel de preguntas; JavaScript lo muestra después de crear la cuenta. -->
@@ -235,7 +261,8 @@
                     <!-- Pregunta 2: Frecuencia de uso de dispositivos -->
                     <div class="question" data-question="2">
                         <div class="question__content">
-                            <p class="question__text">2. ¿Con qué frecuencia utilizas dispositivos como celular o computador?</p>
+                            <p class="question__text">2. ¿Con qué frecuencia utilizas dispositivos como celular o
+                                computador?</p>
                             <div class="question__options">
                                 <button class="question__option" data-option="never">Nunca</button>
                                 <button class="question__option" data-option="sometimes">Algunas veces</button>
@@ -288,7 +315,8 @@
                     <div class="progress-bar">
                         <div class="progress-bar__fill" data-progress-fill></div>
                     </div>
-                    <p class="progress-text"><span data-current-question>1</span> de <span data-total-questions>5</span></p>
+                    <p class="progress-text"><span data-current-question>1</span> de <span data-total-questions>5</span>
+                    </p>
                 </div>
 
                 <div class="questions-panel__actions">
@@ -320,6 +348,7 @@
 
     <!-- Carga la logica de apertura, cambio de formularios y reconocimiento facial. -->
     <script src="Frontend/views/js/autenticacion.js" defer></script>
+    <script src="Frontend/views/js/pantalla-inicio.js" defer></script>
 
 </body>
 
