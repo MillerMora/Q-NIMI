@@ -62,6 +62,7 @@
 html {
     scroll-behavior: smooth;
     /* desplazamiento suave al usar los enlaces del menú */
+    height: 100%;
 }
 
 /* Respetamos si el usuario tiene activada la preferencia de "reducir movimiento",
@@ -84,7 +85,15 @@ body {
     color: var(--color-text);
     line-height: 1.6;
     font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
     /* tamaño base más grande de lo habitual, mejora la lectura */
+}
+
+
+.contenido-principal {
+    flex: 1;
 }
 
 h1,
@@ -833,4 +842,74 @@ button:focus-visible {
 /* Evita el scroll de fondo mientras la pantalla de carga está activa */
 body.pantalla-carga-activa {
     overflow: hidden;
+}
+/* --------------------------------------------------------------------------
+   SELECCIÓN DE NIVELES
+   Grid de cajas (una por nivel) que se acomodan solas según el espacio
+   disponible: de lado a lado en pantallas grandes, y en columna
+   en pantallas pequeñas, sin necesidad de media queries adicionales.
+   -------------------------------------------------------------------------- */
+.niveles__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
+}
+
+.nivel-tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radio-suave);
+    box-shadow: var(--sombra-suave);
+    padding: 28px;
+    cursor: pointer;
+    font-family: var(--fuente-texto);
+    transition: transform 0.15s ease, border-color 0.2s ease;
+}
+
+.nivel-tarjeta:hover,
+.nivel-tarjeta:focus-visible {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+}
+
+.nivel-tarjeta__numero {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: var(--radio-boton);
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+    font-family: var(--fuente-titulos);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.nivel-tarjeta__titulo {
+    font-size: 1.25rem;
+    color: var(--color-primary-dark);
+}
+
+.nivel-tarjeta__descripcion {
+    color: var(--color-text-soft);
+    font-size: 0.95rem;
+}
+
+.nivel-tarjeta__imagen {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 4px;
+    background-color: var(--color-bg-alt);
+}
+
+.nivel-tarjeta__imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
