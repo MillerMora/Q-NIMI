@@ -16,20 +16,39 @@ Q-NIMI/
 │   └── views/
 │       ├── css/
 │       │   └── styles.css
-│       └── js/
-│           ├── autenticacion.js
-│           └── pantalla-inicio.js
+│       ├── js/
+│       │   ├── autenticacion.js
+│       │   └── pantalla-inicio.js
+│       ├── diferencias.html
+│       ├── mapa_niveles.html
+│       ├── memoria.html
+│       └── tangram.html
 ├── index.html
 └── README.md
 ```
-- **Backend/** — Lógica del servidor, rutas, controladores y conexión con la base de datos.
-- **Frontend/** — Todo el código del lado del cliente (lo que el usuario ve y con lo que interactúa).
-  - **assets/** — Recursos estáticos como imágenes, íconos y logos.
-  - **views/** — Vistas del proyecto; aquí van todas las páginas HTML del sitio web.
-    - **css/** — Hojas de estilo CSS.
-    - **js/** — Scripts de JavaScript.
-      - `autenticacion.js` — Controla el modal de inicio de sesión, registro y reconocimiento facial.
-      - `pantalla-inicio.js` — Controla la pantalla de carga inicial que se desvanece para mostrar el index.
-- **index.html** — Página principal del sitio web.
-- **README.md** — Este archivo: documentación general del proyecto..
+## Descripción de los directorios y archivos
 
+* **`Backend/`** — Directorio destinado al código del backend del proyecto.
+
+* **`Frontend/`** — Contiene los archivos relacionados con la interfaz del proyecto.
+
+  * **`assets/`** — Contiene recursos utilizados por el frontend.
+
+    * `Logo.jpeg` — Imagen del logo del proyecto.
+  * **`views/`** — Contiene las vistas HTML del proyecto.
+
+    * **`css/`** — Contiene los archivos de estilos CSS.
+
+      * `styles.css` — Hoja de estilos del frontend.
+    * **`js/`** — Contiene los archivos JavaScript.
+
+      * `autenticacion.js` — Archivo JavaScript relacionado con la autenticación.
+      * `pantalla-inicio.js` — Archivo JavaScript relacionado con la pantalla de inicio.
+    * `diferencias.html` — Vista correspondiente al juego o actividad de diferencias.
+    * `mapa_niveles.html` — Vista correspondiente al mapa de niveles.
+    * `memoria.html` — Vista correspondiente al juego o actividad de memoria.
+    * `tangram.html` — Vista correspondiente al juego o actividad de tangram.
+
+* **`index.html`** — Página principal del proyecto.
+
+* **`README.md`** — Archivo de documentación del proyecto.
