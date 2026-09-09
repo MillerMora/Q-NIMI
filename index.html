@@ -35,8 +35,10 @@
 
             <!-- Marca: logo + nombre del proyecto -->
             <div class="navbar__marca">
-                <img src="Frontend/assets/Logo.jpeg" alt="Logotipo del proyecto QNIMI" class="navbar__logo">
-                <span class="navbar__nombre">Q'NIMI</span>
+                <a href="./index.html">
+                    <img src="Frontend/assets/Logo.jpeg" alt="Logotipo del proyecto QNIMI" class="navbar__logo">
+                    <span class="navbar__nombre">Q'NIMI</span>
+                </a>
             </div>
 
             <!-- Enlaces internos: cada uno apunta a una sección diferente del sitio web -->
@@ -59,25 +61,23 @@
     </header>
 
     <!-- Contenido principal de la pagina -->
-    <main>
+    <main class="contenido-principal">
         <section class="hero">
             <div class="contenedor hero__grid">
 
                 <div class="hero__contenido">
                     <!-- Titulo principal aun no definido, se piensa poner aqui el eslogan del juego -->
-                    <h1 class="hero__titulo">Lorem ipsum dolor sit amet consectetur.</h1>
+                    <h1 class="hero__titulo">Entrena tu mente, juega tu mundo.</h1>
 
                     <!-- Texto introductorio corto, también de relleno mientras se define el contenido definitivo del proyecto -->
                     <p class="hero__texto">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua, un
-                        espacio pensado para acompañar a cada niño a su propio ritmo.
+                        Q'NIMI un espacio de aprendizaje pensado para que cada persona avance a su manera, sin comparaciones ni presiones. Aquí, aprender y jugar son parte de una misma experiencia: cada actividad está pensada para adaptarse al ritmo y las particularidades de quien la usa, no al revés. Creemos que el conocimiento se disfruta más cuando se construye con libertad, y que cada logro, sin importar el camino que tome para llegar a él, merece ser celebrado.
                     </p>
 
                     <!-- Botón principal: simula el acceso directo a jugar. Por ahorano lleva a ninguna vista real,pero su texto deja 
                      claro que al presionarlo se entra al juego  -->
                     <div class="hero__cta">
-                        <a href="#" class="boton boton--primario">Comienza tu aventura</a>
+                        <a href="Frontend/views/mapa_niveles.html" class="boton boton--primario">Comienza tu aventura</a>
                         <a href="#objetivos" class="boton boton--secundario">Más información</a>
                     </div>
                 </div>
@@ -170,9 +170,9 @@
 
                     <article class="tarjeta objetivos__tarjeta">
                         <p class="tarjeta__texto">
-                            La aplicación también contará con un sistema de evaluación inicial mediante un quiz que
-                            permitirá identificar las necesidades y áreas de aprendizaje del usuario, con el objetivo de
-                            recomendar actividades y juegos adecuados.
+                                La aplicación también contará con un sistema de evaluación inicial mediante un quiz que
+                                permitirá identificar las necesidades y áreas de aprendizaje del usuario, con el objetivo de
+                                recomendar actividades y juegos adecuados.
                         </p>
                     </article>
                 </div>
