@@ -1,18 +1,267 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Q'NIMI | Aventura por niveles</title>
     <meta name="description"
         content="Proyecto educativo tipo videojuego por niveles, diseñado para niños con discapacidad cognitiva leve.">
-    <link rel="stylesheet" href="Frontend/views/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Lexend:wght@400;500;600&display=swap"
         rel="stylesheet">
 </head>
+
 <body>
-    
+    <!-- NAVBAR - Barra de navegación fija en la parte superior.-->
+    <header class="navbar">
+        <div class="contenedor navbar__contenido">
+
+            <!-- Marca: logo + nombre del proyecto -->
+            <div class="navbar__marca">
+                <a href="../../index.html">
+                    <img src="../assets/Logo.jpeg" alt="Logotipo del proyecto QNIMI" class="navbar__logo">
+                    <span class="navbar__nombre">Q'NIMI</span>
+                </a>
+            </div>
+
+            <!-- Enlaces internos: cada uno apunta a una sección diferente del sitio web -->
+            <nav aria-label="Navegación principal">
+                <ul class="navbar__enlaces">
+                    <li><a href="#">seccion1</a></li>
+                    <li><a href="#">seccion2</a></li>
+                    <li><a href="#">seccion3</a></li>
+                    <li><a href="#">seccion4</a></li>
+                </ul>
+            </nav>
+
+            <!-- Accesos de sesión: por ahora son botones estáticos (sin backend conectado) -->
+            <div class="navbar__acciones">
+                <a href="#" class="boton boton--secundario" data-auth-open="login">Iniciar sesión</a>
+                <a href="#" class="boton boton--primario" data-auth-open="register">Registrarse</a>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="contenido-principal">
+        <section class="niveles seccion" id="niveles">
+            <div class="contenedor">
+                <div class="seccion__cabecera">
+                    <h2 class="seccion__titulo">Elige tu nivel</h2>
+                    <div class="seccion__linea"></div>
+                </div>
+
+                <div class="niveles__grid">
+
+                    <a href="#" class="nivel-tarjeta" data-nivel="1">
+                        <div class="nivel-tarjeta__imagen">
+                            <img src="assets/nivel_diferencias.png" alt="">
+                        </div>
+                        <span class="nivel-tarjeta__numero">Nivel 1</span>
+                        <h3 class="nivel-tarjeta__titulo">Diferencias</h3>
+                        <p class="nivel-tarjeta__descripcion">
+                            Insertar Descripción.
+                        </p>
+                    </a>
+
+                    <a href="#" class="nivel-tarjeta" data-nivel="2">
+                        <div class="nivel-tarjeta__imagen">
+                            <img src="assets/nivel_memoria.png" alt="">
+                        </div>
+                        <span class="nivel-tarjeta__numero">Nivel 2</span>
+                        <h3 class="nivel-tarjeta__titulo">Memoria</h3>
+                        <p class="nivel-tarjeta__descripcion">
+                            Insertar Descripción.
+                        </p>
+                    </a>
+
+                    <a href="#" class="nivel-tarjeta" data-nivel="3">
+                        <div class="nivel-tarjeta__imagen">
+                            <img src="assets/nivel_tangram.png" alt="">
+                        </div>
+                        <span class="nivel-tarjeta__numero">Nivel 3</span>
+                        <h3 class="nivel-tarjeta__titulo">Tangram</h3>
+                        <p class="nivel-tarjeta__descripcion">
+                            Insertar Descripción.
+                        </p>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- Modal reutilizable para iniciar sesion, registrarse y usar la camara. -->
+    <div class="modal" id="authModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <div class="modal__contenido">
+            <!-- Cierra el modal sin enviar ningun formulario. -->
+            <button class="modal__cerrar" type="button" data-auth-close aria-label="Cerrar ventana">&times;</button>
+
+            <!-- Formulario visible por defecto para usuarios con una cuenta. -->
+            <div class="auth-panel" data-auth-panel="login">
+                <p class="auth-panel__eyebrow">Tu aventura continúa</p>
+                <h2 class="auth-panel__titulo" id="authTitle">Iniciar sesión</h2>
+                <p class="auth-panel__texto">Entra a Q'NIMI para continuar tu progreso.</p>
+                <form class="auth-form" id="loginForm">
+                    <label for="loginUser">Usuario</label>
+                    <input id="loginUser" name="usuario" type="text" autocomplete="username"
+                        placeholder="Escribe tu usuario" required>
+                    <label for="loginPassword">Contraseña</label>
+                    <input id="loginPassword" name="contraseña" type="password" autocomplete="current-password"
+                        placeholder="Escribe tu contraseña" required>
+                    <button class="boton boton--primario auth-form__submit" type="submit">Entrar</button>
+                </form>
+                <div class="login-opciones">
+                    <button class="boton boton--enlace" type="button" data-recover-password>Recuperar
+                        contraseña</button>
+                </div>
+                <div class="auth-divider"><span>o</span></div>
+                <button class="boton boton--facial" type="button" data-face-start>Ingresar con reconocimiento
+                    facial</button>
+                <p class="auth-switch">¿No tienes cuenta? <button type="button"
+                        data-auth-switch="register">Registrarse</button></p>
+            </div>
+
+            <!-- Formulario alternativo para crear una cuenta nueva. -->
+            <div class="auth-panel" data-auth-panel="register" hidden>
+                <p class="auth-panel__eyebrow">Un espacio para crecer</p>
+                <h2 class="auth-panel__titulo" id="registerTitle">Registrarse</h2>
+                <p class="auth-panel__texto">Crea una cuenta para guardar cada logro.</p>
+                <form class="auth-form" id="registerForm">
+                    <label for="registerUser">Usuario</label>
+                    <input id="registerUser" name="usuario" type="text" autocomplete="username"
+                        placeholder="Elige un usuario" required>
+                    <label for="registerEmail">Correo electrónico</label>
+                    <input id="registerEmail" name="correo" type="email" autocomplete="email" placeholder="tu@email.com"
+                        required>
+                    <label for="registerPassword">Contraseña</label>
+                    <input id="registerPassword" name="contraseña" type="password" autocomplete="new-password"
+                        placeholder="Crea una contraseña" required>
+                    <button class="boton boton--primario auth-form__submit" type="submit" data-create-account>Crear
+                        cuenta</button>
+                </form>
+                <div class="auth-divider"><span>o</span></div>
+                <button class="boton boton--facial" type="button" data-face-start-register>Registrarse con
+                    reconocimiento facial</button>
+                <p class="auth-switch">¿Ya tienes cuenta? <button type="button" data-auth-switch="login">Iniciar
+                        sesión</button></p>
+            </div>
+
+            <!-- Panel de preguntas; JavaScript lo muestra después de crear la cuenta. -->
+            <div class="questions-panel" data-questions-panel hidden>
+                <div class="questions-panel__header">
+                    <h2 class="auth-panel__titulo">Conoce tus preferencias</h2>
+                    <p class="auth-panel__texto">Contesta estas preguntas rápidas para personalizar tu experiencia.</p>
+                </div>
+
+                <div class="questions-container">
+                    <!-- Pregunta 1: Edad -->
+                    <div class="question" data-question="1">
+                        <div class="question__content">
+                            <p class="question__text">1. ¿Qué edad tienes?</p>
+                            <div class="question__options">
+                                <button class="question__option" data-option="5-7">5 a 7 años</button>
+                                <button class="question__option" data-option="8-10">8 a 10 años</button>
+                                <button class="question__option" data-option="11-13">11 a 13 años</button>
+                                <button class="question__option" data-option="14+">14 años o más</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 2: Frecuencia de uso de dispositivos -->
+                    <div class="question" data-question="2">
+                        <div class="question__content">
+                            <p class="question__text">2. ¿Con qué frecuencia utilizas dispositivos como celular o
+                                computador?</p>
+                            <div class="question__options">
+                                <button class="question__option" data-option="never">Nunca</button>
+                                <button class="question__option" data-option="sometimes">Algunas veces</button>
+                                <button class="question__option" data-option="often">Casi siempre</button>
+                                <button class="question__option" data-option="always">Todo el tiempo</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 3: Forma de aprender -->
+                    <div class="question" data-question="3">
+                        <div class="question__content">
+                            <p class="question__text">3. ¿De qué manera prefieres aprender?</p>
+                            <div class="question__options">
+                                <button class="question__option" data-option="images">Viendo imágenes</button>
+                                <button class="question__option" data-option="listening">Escuchando</button>
+                                <button class="question__option" data-option="reading">Leyendo</button>
+                                <button class="question__option" data-option="activities">Con actividades</button>
+                                <button class="question__option" data-option="playing">Jugando</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 4: Tipo de actividades preferidas -->
+                    <div class="question" data-question="4">
+                        <div class="question__content">
+                            <p class="question__text">4. ¿Qué tipo de actividades prefieres?</p>
+                            <div class="question__options">
+                                <button class="question__option" data-option="short">Cortas y sencillas</button>
+                                <button class="question__option" data-option="medium">Un poco largas</button>
+                                <button class="question__option" data-option="any">Cualquiera está bien</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregunta 5: Nueva pregunta -->
+                    <div class="question" data-question="5">
+                        <div class="question__content">
+                            <p class="question__text">5. ¿futuro?</p>
+                            <div class="question__options">
+                                <button class="question__option" data-option="short">a</button>
+                                <button class="question__option" data-option="medium">b</button>
+                                <button class="question__option" data-option="any">c</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="questions-panel__progress">
+                    <div class="progress-bar">
+                        <div class="progress-bar__fill" data-progress-fill></div>
+                    </div>
+                    <p class="progress-text"><span data-current-question>1</span> de <span data-total-questions>5</span>
+                    </p>
+                </div>
+
+                <div class="questions-panel__actions">
+                    <button class="boton boton--secundario" type="button" data-questions-skip>Saltar</button>
+                    <button class="boton boton--primario" type="button" data-questions-next>Siguiente</button>
+                </div>
+            </div>
+
+            <!-- Panel de camara; JavaScript lo muestra al elegir reconocimiento facial. -->
+            <div class="face-panel" data-face-panel hidden>
+                <h2 class="auth-panel__titulo">Reconocimiento facial</h2>
+                <p class="auth-panel__texto" data-face-status>Permite el acceso a tu cámara para continuar.</p>
+                <video class="face-panel__video" data-face-video autoplay muted playsinline></video>
+                <div class="face-panel__acciones">
+                    <button class="boton boton--primario" type="button" data-face-scan>Reconocer rostro</button>
+                    <button class="boton boton--secundario" type="button" data-face-cancel>Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="contenedor">
+            <p class="footer__eslogan">"Cada nivel, un paso más cerca de ti."</p>
+            <p class="footer__copy">&copy; 2026 Q'NIMI. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Carga la logica de apertura, cambio de formularios y reconocimiento facial. -->
+    <script src="js/autenticacion.js" defer></script>
 </body>
+
 </html>
