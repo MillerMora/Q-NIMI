@@ -3,16 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Diferencias</title>
     <meta name="description"
         content="Proyecto educativo tipo videojuego por niveles, diseñado para niños con discapacidad cognitiva leve.">
-    <link rel="stylesheet" href="Frontend/views/css/styles.css">
+    <link rel="stylesheet" href="/Frontend/views/css/styles_diferencias.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Lexend:wght@400;500;600&display=swap"
         rel="stylesheet">
 </head>
 <body>
+    <title>Juego: Encuentra las Diferencias</title>
     
+</head>
+<body>
+
+    <h1>Encuentra las 2 Diferencias 🔍</h1>
+    <p>Nivel: Fácil. Compara ambos lados de la imagen.</p>
+    <div class="contador">Diferencias encontradas: <span id="encontradas">0</span> / 2</div>
+
+    <!-- Contenedor del juego -->
+    <div class="juego-container">
+        <img src="/Frontend/assets/img de diferencias/elefantante813x610.png" alt="Imagen de diferencias" class="imagen-juego">
+        <!-- DEFINICIÓN DE LAS DIFERENCIAS (Usa porcentajes para que sea responsivo) -->
+        <!-- Nota: Estos porcentajes son de ejemplo para la imagen de arriba -->
+        
+
+                    <!-- Zona de la Planta (Lado derecho) -->
+        <div class="diferencia" style="top: 70%; left: 52%; width: 14%; height: 21%;"></div>
+
+        <!-- Zona del Balde Gris (Extremo derecho) -->
+        <div class="diferencia" style="top: 73%; left: 81%; width: 12%; height: 18%;"></div>
+
+    </div>
+
+</body>
+</html>
+    <script src="/Frontend/views/js/diferencias.js" defer></script>
 </body>
 </html>
