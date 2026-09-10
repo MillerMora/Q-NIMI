@@ -14,7 +14,7 @@
         // 3. Creamos dinámicamente las tarjetas en el HTML
         emojis.forEach((emoji) => {
             const tarjeta = document.createElement('div');
-            tarjeta.classList.add('tarjeta');
+            tarjeta.classList.add('tarjeta2');
             tarjeta.dataset.valor = emoji;
             tarjeta.textContent = emoji;
             

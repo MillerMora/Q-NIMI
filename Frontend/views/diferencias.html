@@ -6,17 +6,56 @@
     <title>Diferencias</title>
     <meta name="description"
         content="Proyecto educativo tipo videojuego por niveles, diseñado para niños con discapacidad cognitiva leve.">
-    <link rel="stylesheet" href="../views/css/styles_diferencias.css">
+        <link rel="stylesheet" href="../views/css/styles_diferencias.css">
+        
+        <link rel="stylesheet" href="../views/css/styles.css">
+        
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Lexend:wght@400;500;600&display=swap"
         rel="stylesheet">
+
 </head>
 <body>
-    <title>Juego: Encuentra las Diferencias</title>
     
-</head>
+
+    <title>Juego: Encuentra las Diferencias</title>
+
 <body>
+<div>
+        <!-- NAVBAR - Barra de navegación fija en la parte superior.-->
+    <header class="navbar">
+        <div class="contenedor navbar__contenido">
+
+            <!-- Marca: logo + nombre del proyecto -->
+            <div class="navbar__marca">
+                <a href="../../index.html">
+                    <img src="../assets/Logo.jpeg" alt="Logotipo del proyecto QNIMI" class="navbar__logo">
+                    <span class="navbar__nombre">Q'NIMI</span>
+                </a>
+            </div>
+
+            <!-- Enlaces internos: cada uno apunta a una sección diferente del sitio web -->
+            <nav aria-label="Navegación principal">
+                <ul class="navbar__enlaces">
+                    <li><a href="#">seccion1</a></li>
+                    <li><a href="#">seccion2</a></li>
+                    <li><a href="#">seccion3</a></li>
+                    <li><a href="#">seccion4</a></li>
+                </ul>
+            </nav>
+
+            <!-- Accesos de sesión: por ahora son botones estáticos (sin backend conectado) -->
+            <div class="navbar__acciones">
+                <a href="#" class="boton boton--secundario" data-auth-open="login">Iniciar sesión</a>
+                <a href="#" class="boton boton--primario" data-auth-open="register">Registrarse</a>
+            </div>
+
+        </div>
+    </header>
+    <a href="../views/mapa_niveles.html">
+        <button>Volver</button>
+    </a>
 
     <h1>Encuentra las 2 Diferencias 🔍</h1>
     <p>Nivel: Fácil. Compara ambos lados de la imagen.</p>
@@ -36,7 +75,7 @@
         <div class="diferencia" style="top: 73%; left: 81%; width: 12%; height: 18%;"></div>
 
     </div>
-
+</div>  
 </body>
 </html>
     <script src="../views/js/diferencias.js" defer></script>

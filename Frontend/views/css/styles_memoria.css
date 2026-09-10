@@ -21,10 +21,10 @@ body {
         }
 
         /* Estilo base de cada tarjeta */
-        .tarjeta {
+        .tarjeta2 {
             width: 80px;
             height: 80px;
-            background-color: #34495e;
+            background-color: #6352528f;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -42,15 +42,15 @@ body {
         }
 
         /* Cuando la tarjeta se voltea o ya se encontró su pareja */
-        .tarjeta.volteada, .tarjeta.emparejada {
-            background-color: #ffffff;
+        .tarjeta2.volteada, .tarjeta.emparejada {
+            background-color: #eeecec;
             border: 2px solid #3498db;
             color: initial; /* Muestra el emoji */
             pointer-events: none; /* Evita volver a hacer clic en la misma */
         }
 
         /* Estilo visual cuando se encuentra un par correcto */
-        .tarjeta.emparejada {
+        .tarjeta2.emparejada {
             border-color: #2ecc71;
             background-color: #e8f8f5;
         }
