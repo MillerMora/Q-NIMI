@@ -913,3 +913,342 @@ body.pantalla-carga-activa {
     height: 100%;
     object-fit: cover;
 }
+/* ==========================================================================
+   EVALUACIÓN INTERACTIVA - Q'NIMI
+   Experiencia guiada por la mascota "Nimi", pensada para niños con
+   discapacidad cognitiva leve: pocos elementos por pantalla, refuerzo
+   positivo constante, avance automático y animaciones suaves.
+   ========================================================================== */
+
+.experiencia {
+    display: flex;
+    justify-content: center;
+    padding: var(--espacio-seccion) 20px;
+    min-height: 80vh;
+}
+
+.pantalla-experiencia {
+    width: min(560px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+    animation: aparecer 0.5s ease;
+}
+
+.boton--grande {
+    font-size: 1.15rem;
+    padding: 16px 40px;
+}
+
+/* --------------------------------------------------------------------------
+   MASCOTA "NIMI"
+   -------------------------------------------------------------------------- */
+.mascota__svg {
+    width: 140px;
+    height: 140px;
+}
+
+.mascota--idle .mascota__svg {
+    animation: mascota-respirar 3s ease-in-out infinite;
+}
+
+.mascota__mejilla {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mascota__boca--feliz {
+    display: none;
+}
+
+.mascota--feliz .mascota__boca--normal {
+    display: none;
+}
+
+.mascota--feliz .mascota__boca--feliz {
+    display: block;
+}
+
+.mascota--feliz .mascota__mejilla {
+    opacity: 1;
+}
+
+.mascota--rebote .mascota__svg {
+    animation: mascota-rebote 0.6s ease;
+}
+
+@keyframes mascota-respirar {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-6px) scale(1.02); }
+}
+
+@keyframes mascota-rebote {
+    0%   { transform: translateY(0) scale(1); }
+    30%  { transform: translateY(-22px) scale(1.08); }
+    55%  { transform: translateY(0) scale(0.96); }
+    75%  { transform: translateY(-8px) scale(1.03); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* --------------------------------------------------------------------------
+   GLOBO DE DIÁLOGO
+   -------------------------------------------------------------------------- */
+.globo-dialogo {
+    position: relative;
+    max-width: 420px;
+    background-color: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radio-suave);
+    padding: 14px 22px;
+    font-family: var(--fuente-titulos);
+    font-size: 1.1rem;
+    color: var(--color-primary-dark);
+    box-shadow: var(--sombra-suave);
+}
+
+.globo-dialogo::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 10px 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent var(--color-bg-card) transparent;
+}
+
+/* --------------------------------------------------------------------------
+   CAMINO DE PROGRESO
+   -------------------------------------------------------------------------- */
+.camino-progreso {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.nodo-progreso {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: var(--color-bg-card);
+    border: 3px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fuente-titulos);
+    font-size: 0.95rem;
+    color: var(--color-text-soft);
+    z-index: 1;
+    transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+
+.nodo-progreso:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 4px;
+    background-color: var(--color-border);
+    transition: background-color 0.3s ease;
+}
+
+.nodo-progreso--activo {
+    border-color: var(--color-primary);
+    animation: pulso-nodo 1.6s ease-in-out infinite;
+}
+
+.nodo-progreso--completado {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+.nodo-progreso--completado:not(:first-child)::before {
+    background-color: var(--color-secondary);
+}
+
+@keyframes pulso-nodo {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(78, 128, 152, 0.15); }
+    50%      { box-shadow: 0 0 0 9px rgba(78, 128, 152, 0.04); }
+}
+
+/* --------------------------------------------------------------------------
+   TARJETA DE PREGUNTA
+   -------------------------------------------------------------------------- */
+.tarjeta-pregunta {
+    width: 100%;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radio-suave);
+    box-shadow: var(--sombra-suave);
+    padding: 32px 26px;
+    animation: aparecer 0.4s ease;
+}
+
+.tarjeta-pregunta.saliendo {
+    animation: desaparecer 0.25s ease forwards;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes desaparecer {
+    to { opacity: 0; transform: translateY(-16px); }
+}
+
+.pregunta-texto {
+    font-family: var(--fuente-titulos);
+    font-size: 1.3rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 22px;
+}
+
+.opciones-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+@media (max-width: 480px) {
+    .opciones-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.opcion-boton {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    border: 3px solid var(--color-border);
+    border-radius: 18px;
+    background-color: var(--color-bg);
+    font: inherit;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.opcion-boton:hover,
+.opcion-boton:focus-visible {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+}
+
+.opcion-boton.seleccionada {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    animation: opcion-elegida 0.4s ease;
+}
+
+@keyframes opcion-elegida {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.opcion-boton__letra {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: var(--color-bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fuente-titulos);
+    color: var(--color-primary-dark);
+}
+
+.opcion-boton.seleccionada .opcion-boton__letra {
+    background-color: var(--color-bg-card);
+}
+
+/* --------------------------------------------------------------------------
+   PANTALLA DE RESULTADO
+   -------------------------------------------------------------------------- */
+.resultado-titulo {
+    font-size: 1.8rem;
+}
+
+.estrellas-resultado {
+    display: flex;
+    gap: 8px;
+    font-size: 2rem;
+    color: var(--color-border);
+}
+
+.estrellas-resultado span {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.estrellas-resultado span.lograda {
+    color: var(--color-secondary);
+    animation: estrella-pop 0.5s ease;
+}
+
+@keyframes estrella-pop {
+    0%   { transform: scale(0) rotate(-20deg); }
+    60%  { transform: scale(1.3) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.resultado-tarjeta {
+    width: 100%;
+}
+
+.resultado-nivel {
+    font-family: var(--fuente-titulos);
+    font-size: 1.4rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 6px;
+}
+
+.resultado-texto {
+    color: var(--color-text-soft);
+}
+
+/* --------------------------------------------------------------------------
+   CONFETI
+   -------------------------------------------------------------------------- */
+.confeti-contenedor {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 300;
+}
+
+.confeti-pieza {
+    position: absolute;
+    top: -20px;
+    width: 10px;
+    height: 14px;
+    border-radius: 3px;
+    animation: confeti-caer linear forwards;
+}
+
+@keyframes confeti-caer {
+    to {
+        transform: translateY(110vh) rotate(540deg);
+        opacity: 0.2;
+    }
+}
+
+/* Movimiento reducido: quitamos el latido, el pulso y el confeti,
+   la regla global ya achica las duraciones, aquí ocultamos el confeti entero */
+@media (prefers-reduced-motion: reduce) {
+    .confeti-contenedor {
+        display: none;
+    }
+}

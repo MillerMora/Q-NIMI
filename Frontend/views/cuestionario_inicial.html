@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación inicial - Q'NIMI</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="pagina-evaluacion">
+
+    <main class="contenido-principal experiencia">
+
+        <!-- ============================================================
+             PANTALLA 1: INTRODUCCIÓN
+             Nimi se presenta antes de empezar, para que la actividad
+             se sienta como jugar con un amigo y no como un examen.
+             ============================================================ -->
+        <section id="pantalla-intro" class="pantalla-experiencia">
+            <div class="mascota mascota--idle" id="mascota-intro" aria-hidden="true">
+                <svg viewBox="0 0 160 160" class="mascota__svg">
+                    <circle cx="45" cy="40" r="12" fill="var(--color-secondary)"/>
+                    <circle cx="115" cy="40" r="12" fill="var(--color-secondary)"/>
+                    <circle cx="80" cy="90" r="60" fill="var(--color-secondary)"/>
+                    <circle class="mascota__mejilla" cx="45" cy="100" r="10" fill="var(--color-accent)"/>
+                    <circle class="mascota__mejilla" cx="115" cy="100" r="10" fill="var(--color-accent)"/>
+                    <circle cx="58" cy="85" r="14" fill="#fff"/>
+                    <circle cx="102" cy="85" r="14" fill="#fff"/>
+                    <circle class="mascota__pupila" cx="58" cy="85" r="6" fill="var(--color-text)"/>
+                    <circle class="mascota__pupila" cx="102" cy="85" r="6" fill="var(--color-text)"/>
+                    <path class="mascota__boca mascota__boca--normal" d="M60 108 Q80 120 100 108" stroke="var(--color-text)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path class="mascota__boca mascota__boca--feliz" d="M55 104 Q80 134 105 104 Q80 116 55 104 Z" fill="var(--color-text)"/>
+                </svg>
+            </div>
+
+            <div class="globo-dialogo">
+                <p>¡Hola! Soy Nimi. Vamos a jugar juntos para conocerte un poco mejor.</p>
+            </div>
+
+            <button type="button" id="btn-empezar" class="boton boton--primario boton--grande">
+                ¡Empezar aventura!
+            </button>
+        </section>
+
+        <!-- ============================================================
+             PANTALLA 2: JUEGO
+             ============================================================ -->
+        <section id="pantalla-juego" class="pantalla-experiencia" hidden>
+
+            <!-- Camino de progreso: un nodo por pregunta -->
+            <div class="camino-progreso" id="camino-progreso" aria-hidden="true"></div>
+
+            <div class="mascota mascota--idle" id="mascota-juego" aria-hidden="true">
+                <svg viewBox="0 0 160 160" class="mascota__svg">
+                    <circle cx="45" cy="40" r="12" fill="var(--color-secondary)"/>
+                    <circle cx="115" cy="40" r="12" fill="var(--color-secondary)"/>
+                    <circle cx="80" cy="90" r="60" fill="var(--color-secondary)"/>
+                    <circle class="mascota__mejilla" cx="45" cy="100" r="10" fill="var(--color-accent)"/>
+                    <circle class="mascota__mejilla" cx="115" cy="100" r="10" fill="var(--color-accent)"/>
+                    <circle cx="58" cy="85" r="14" fill="#fff"/>
+                    <circle cx="102" cy="85" r="14" fill="#fff"/>
+                    <circle class="mascota__pupila" cx="58" cy="85" r="6" fill="var(--color-text)"/>
+                    <circle class="mascota__pupila" cx="102" cy="85" r="6" fill="var(--color-text)"/>
+                    <path class="mascota__boca mascota__boca--normal" d="M60 108 Q80 120 100 108" stroke="var(--color-text)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path class="mascota__boca mascota__boca--feliz" d="M55 104 Q80 134 105 104 Q80 116 55 104 Z" fill="var(--color-text)"/>
+                </svg>
+            </div>
+
+            <div class="globo-dialogo">
+                <p id="texto-mensaje" aria-live="polite">Pregunta 1</p>
+            </div>
+
+            <div class="tarjeta-pregunta" id="tarjeta-pregunta">
+                <p class="pregunta-texto" id="pregunta-texto"></p>
+                <div class="opciones-grid" id="opciones-grid"></div>
+                <button type="button" id="btn-volver" class="boton boton--enlace" disabled>
+                    Volver a la pregunta anterior
+                </button>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             PANTALLA 3: RESULTADO
+             ============================================================ -->
+        <section id="pantalla-resultado" class="pantalla-experiencia" hidden>
+            <div class="mascota mascota--feliz mascota--rebote" aria-hidden="true">
+                <svg viewBox="0 0 160 160" class="mascota__svg">
+                    <circle cx="45" cy="40" r="12" fill="var(--color-secondary)"/>
+                    <circle cx="115" cy="40" r="12" fill="var(--color-secondary)"/>
+                    <circle cx="80" cy="90" r="60" fill="var(--color-secondary)"/>
+                    <circle class="mascota__mejilla" cx="45" cy="100" r="10" fill="var(--color-accent)"/>
+                    <circle class="mascota__mejilla" cx="115" cy="100" r="10" fill="var(--color-accent)"/>
+                    <circle cx="58" cy="85" r="14" fill="#fff"/>
+                    <circle cx="102" cy="85" r="14" fill="#fff"/>
+                    <circle class="mascota__pupila" cx="58" cy="85" r="6" fill="var(--color-text)"/>
+                    <circle class="mascota__pupila" cx="102" cy="85" r="6" fill="var(--color-text)"/>
+                    <path class="mascota__boca mascota__boca--normal" d="M60 108 Q80 120 100 108" stroke="var(--color-text)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path class="mascota__boca mascota__boca--feliz" d="M55 104 Q80 134 105 104 Q80 116 55 104 Z" fill="var(--color-text)"/>
+                </svg>
+            </div>
+
+            <h2 class="resultado-titulo">¡Lo lograste!</h2>
+
+            <div class="tarjeta resultado-tarjeta" id="resultado-tarjeta">
+                <p class="resultado-nivel" id="resultado-nivel"></p>
+                <p class="resultado-texto" id="resultado-descripcion"></p>
+            </div>
+
+            <button type="button" id="btn-continuar" class="boton boton--primario boton--grande">
+                Continuar mi aventura
+            </button>
+        </section>
+
+        <!-- Contenedor donde se generan los confetis al terminar -->
+        <div class="confeti-contenedor" id="confeti-contenedor" aria-hidden="true"></div>
+    </main>
+
+    <script src="js/cuestionario.js"></script>
+</body>
+</html>
