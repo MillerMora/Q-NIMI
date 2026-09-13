@@ -9,27 +9,36 @@ A continuación se describe la organización del proyecto, para que cualquier
 desarrollador que se una pueda ubicarse rápidamente:
 ```
 Q-NIMI/
-├── Backend/
+├── Backend
+|   ├── venv/
+│   ├── connection/
+│   │   └── BD.py
+│   ├── controllers/
+│   ├── main.py
+│   ├── models
+│   └── requirements.txt
 ├── Frontend/
 │   ├── assets/
-│   │   ├──img de diferencias/
-├   ├   ├    ├──elefantante813x610png
-│   │   └── Logo.jpeg
-│   │   └──diferencias.jpg
-│   │   └──nivel_memoria.png
-│   │   └──tangram.png
+│   │   ├── diferencias.jpg
+│   │   ├── img de diferencias
+│   │   │   └── elefantante813x610.png
+│   │   ├── Logo.jpeg
+│   │   ├── nivel_memoria.png
+│   │   └── tangram.png
 │   └── views/
 │       ├── css/
-│       │   └── styles_diferencias.css
-│       │   └── styles_memoria.css
-│       │   └── Styles_tangram.css
-│       │   └── styles.css
+│       │   ├── styles.css
+│       │   ├── styles_diferencias.css
+│       │   ├── styles_memoria.css
+│       │   └── styles_tangram.css
 │       ├── js/
 │       │   ├── autenticacion.js
-│       │   └── diferencias.js
-│       │   └──memoria.js 
-│       │   └──pantalla-inicio.js 
-│       │   └── tangram.Js
+│       │   ├── cuestionario.js
+│       │   ├── diferencias.js
+│       │   ├── memoria.js
+│       │   ├── pantalla-inicio.js
+│       │   └── tangram.js
+│       ├── cuestionario_inicial.html
 │       ├── diferencias.html
 │       ├── mapa_niveles.html
 │       ├── memoria.html
@@ -39,35 +48,94 @@ Q-NIMI/
 ```
 ## Descripción de los directorios y archivos
 
-* **`Backend/`** — Directorio destinado al código del backend del proyecto.
+* **`Backend/`** — Contiene el código del backend del proyecto.
+
+* **`venv/`** — Entorno virtual de Python del backend (no se versiona).
+* **`connection/`** — Módulos relacionados con la conexión a la base de datos.
+
+* `BD.py` — Configuración y conexión a la base de datos MySQL.
+* **`controllers/`** — Controladores con la lógica de las rutas del backend.
+* `main.py` — Punto de entrada de la aplicación FastAPI.
+* **`models/`** — Modelos de datos usados por el backend.
+* `requirements.txt` — Lista de dependencias de Python del backend.
 
 * **`Frontend/`** — Contiene los archivos relacionados con la interfaz del proyecto.
 
-  * **`assets/`** — Contiene recursos utilizados por el frontend.
+* **`assets/`** — Contiene recursos utilizados por el frontend.
 
-    * `Logo.jpeg` — Imagen del logo del proyecto.
-  * **`views/`** — Contiene las vistas HTML del proyecto.
+* `Logo.jpeg` — Imagen del logo del proyecto.
+* **`views/`** — Contiene las vistas HTML del proyecto.
 
-    * **`css/`** — Contiene los archivos de estilos CSS.
+* **`css/`** — Contiene los archivos de estilos CSS.
 
-      * `styles.css` — Hoja de estilos del frontend.
-
-    * **`js/`** — Contiene los archivos JavaScript.
-          styles_diferencias.css — Hoja de estilos del juego de diferencias
-          styles_memoria.css     — Hoja de estilos del juego de memoria
-          styles_tangram.css     — Hoja de estilos del juego de tangram
-          styles.css             — Hoja de estilos del frontend.
-    * `autenticacion.js` — Archivo JavaScript relacionado con la autenticación.
-        diferencias.js — lógica del juego de diferencias
-        memoria.js — lógica del juego de memoria 
-      * `pantalla-inicio.js` — Archivo JavaScript relacionado con la pantalla de inicio.
-        tangram.Js — lógica del juego (pendiente )
-        
-    * `diferencias.html` — Vista correspondiente al juego o actividad de diferencias.
-    * `mapa_niveles.html` — Vista correspondiente al mapa de niveles.
-    * `memoria.html` — Vista correspondiente al juego o actividad de memoria.
-    * `tangram.html` — Vista correspondiente al juego o actividad de tangram.
+* `styles.css` — Hoja de estilos del frontend.
+  styles_diferencias.css — Hoja de estilos del juego de diferencias
+  styles_memoria.css     — Hoja de estilos del juego de memoria
+  styles_tangram.css     — Hoja de estilos del juego de tangram
+  styles.css             — Hoja de estilos del frontend.
+* **`js/`** — Contiene los archivos JavaScript.
+* `autenticacion.js` — Archivo JavaScript relacionado con la autenticación.
+  diferencias.js — lógica del juego de diferencias
+  memoria.js — lógica del juego de memoria 
+  pantalla-inicio.js` — Archivo JavaScript relacionado con la pantalla de carga de index.
+  tangram.Js — lógica del juego (pendiente )
+* `cuestionario.js` — Lógica de la evaluación inicial interactiva (cuestionario guiado con la mascota Nimi).
+* `diferencias.html` — Vista correspondiente al juego o actividad de diferencias.
+* `mapa_niveles.html` — Vista correspondiente al mapa de niveles.
+* `memoria.html` — Vista correspondiente al juego o actividad de memoria.
+* `tangram.html` — Vista correspondiente al juego o actividad de tangram.
+* `cuestionario_inicial.html` — Vista de la evaluación inicial que clasifica al usuario en un nivel (básico, medio o alto).
 
 * **`index.html`** — Página principal del proyecto.
 
 * **`README.md`** — Archivo de documentación del proyecto.
+
+## Backend
+
+El backend está construido en **Python** con **FastAPI**. Las librerías
+principales usadas en `backend/requirements.txt` son:
+
+* `fastapi` — Framework para construir la API.
+* `uvicorn` — Servidor ASGI que ejecuta la aplicación.
+* `mysql-connector-python` — Conexión con la base de datos MySQL.
+* `pydantic` — Validación y modelado de datos.
+* `python-dotenv` — Manejo de variables de entorno (`.env`).
+
+(El resto de paquetes del `requirements.txt`, como `anyio`, `click`, `h11`,
+`idna`, `starlette`, `pydantic_core`, `typing_extensions`, etc., son
+dependencias internas de los anteriores y no se gestionan directamente.)
+
+### Versión de Python
+
+Se recomienda **Python 3.12**, compatible con las versiones de FastAPI y
+Pydantic listadas en `requirements.txt`.
+
+### Crear y activar el entorno virtual
+
+```bash
+# Desde la carpeta backend/
+cd backend
+
+# Crear el entorno virtual
+python -m venv venv
+
+# Activar en Linux / macOS
+source venv/bin/activate
+
+# Activar en Windows (PowerShell)
+venv\Scripts\Activate.ps1
+```
+
+### Instalar las dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+### Arrancar el backend
+
+```bash
+uvicorn main:app --reload
+```
+
+> Se ejecuta desde dentro de `backend/`, ya que `main.py` está en la raíz de esa carpeta.
