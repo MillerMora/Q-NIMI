@@ -1,13 +1,36 @@
-"""Modelos de juegos."""
+"""Consultas SQL relacionadas con juegos."""
 
-from pydantic import BaseModel, ConfigDict
+from mysql.connector import MySQLConnection
 
 
-class JuegoResponse(BaseModel):
-    """Juego disponible para el usuario."""
+def listar_juegos(connection: MySQLConnection) -> list[dict]:
+    """Devuelve todos los juegos disponibles."""
+    cursor = connection.cursor(dictionary=True)
+    try:
+        cursor.execute(
+            """
+            SELECT juego_id, nombre_juego, descripcion
+            FROM Juegos
+            ORDER BY juego_id
+            """
+        )
+        return cursor.fetchall()
+    finally:
+        cursor.close()
 
-    model_config = ConfigDict(from_attributes=True)
 
-    juego_id: int
-    nombre_juego: str
-    descripcion: str | None = None
+def obtener_juego(connection: MySQLConnection, juego_id: int) -> dict | None:
+    """Devuelve un juego por su identificador."""
+    cursor = connection.cursor(dictionary=True)
+    try:
+        cursor.execute(
+            """
+            SELECT juego_id, nombre_juego, descripcion
+            FROM Juegos
+            WHERE juego_id = %s
+            """,
+            (juego_id,),
+        )
+        return cursor.fetchone()
+    finally:
+        cursor.close()

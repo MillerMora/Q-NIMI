@@ -1,25 +1,56 @@
-"""Modelos de resultados."""
+"""Consultas SQL relacionadas con resultados."""
 
-from datetime import datetime
-
-from pydantic import BaseModel, ConfigDict, Field
+from mysql.connector import MySQLConnection
 
 
-class ResultadoCreate(BaseModel):
-    """Datos necesarios para guardar un puntaje."""
+def crear_resultado(
+    connection: MySQLConnection,
+    usuario_id: int,
+    juego_id: int,
+    puntaje: int,
+) -> dict:
+    """Guarda un puntaje y devuelve el registro creado."""
+    cursor = connection.cursor(dictionary=True)
+    try:
+        cursor.execute(
+            """
+            INSERT INTO Resultados (usuario_id, juego_id, puntaje)
+            VALUES (%s, %s, %s)
+            """,
+            (usuario_id, juego_id, puntaje),
+        )
+        connection.commit()
+        cursor.execute(
+            """
+            SELECT resultado_id, usuario_id, juego_id, puntaje, fecha_juego
+            FROM Resultados
+            WHERE resultado_id = %s
+            """,
+            (cursor.lastrowid,),
+        )
+        return cursor.fetchone()
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        cursor.close()
 
-    usuario_id: int = Field(ge=1)
-    juego_id: int = Field(ge=1)
-    puntaje: int = Field(ge=0)
 
-
-class ResultadoResponse(BaseModel):
-    """Resultado devuelto por la API."""
-
-    model_config = ConfigDict(from_attributes=True)
-
-    resultado_id: int
-    usuario_id: int
-    juego_id: int
-    puntaje: int
-    fecha_juego: datetime
+def listar_resultados_usuario(
+    connection: MySQLConnection, usuario_id: int
+) -> list[dict]:
+    """Devuelve los resultados de un usuario ordenados por fecha."""
+    cursor = connection.cursor(dictionary=True)
+    try:
+        cursor.execute(
+            """
+            SELECT resultado_id, usuario_id, juego_id, puntaje, fecha_juego
+            FROM Resultados
+            WHERE usuario_id = %s
+            ORDER BY fecha_juego DESC
+            """,
+            (usuario_id,),
+        )
+        return cursor.fetchall()
+    finally:
+        cursor.close()

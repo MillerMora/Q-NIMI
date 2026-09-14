@@ -1,80 +1,23 @@
-"""Rutas relacionadas con los puntajes."""
-
-import mysql.connector
-from fastapi import APIRouter, HTTPException, status
+"""Controlador de resultados."""
 
 from connection.BD import get_connection
-from models.resultado import ResultadoCreate, ResultadoResponse
+from models.resultado import crear_resultado as guardar_resultado
+from models.resultado import listar_resultados_usuario as consultar_resultados
 
 
-router = APIRouter(prefix="/api/resultados", tags=["Resultados"])
-
-
-@router.post("", response_model=ResultadoResponse, status_code=status.HTTP_201_CREATED)
-def crear_resultado(resultado: ResultadoCreate) -> ResultadoResponse:
+def crear_resultado(usuario_id: int, juego_id: int, puntaje: int) -> dict:
     """Guarda el puntaje obtenido por un usuario en un juego."""
-    connection = None
+    connection = get_connection()
     try:
-        connection = get_connection()
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute(
-            """
-            INSERT INTO Resultados (usuario_id, juego_id, puntaje)
-            VALUES (%s, %s, %s)
-            """,
-            (resultado.usuario_id, resultado.juego_id, resultado.puntaje),
-        )
-        connection.commit()
-        cursor.execute(
-            """
-            SELECT resultado_id, usuario_id, juego_id, puntaje, fecha_juego
-            FROM Resultados
-            WHERE resultado_id = %s
-            """,
-            (cursor.lastrowid,),
-        )
-        registro = cursor.fetchone()
-        cursor.close()
-        return ResultadoResponse.model_validate(registro)
-    except mysql.connector.IntegrityError as error:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="El usuario o el juego no existen.",
-        ) from error
-    except mysql.connector.Error as error:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="No se pudo conectar con la base de datos.",
-        ) from error
+        return guardar_resultado(connection, usuario_id, juego_id, puntaje)
     finally:
-        if connection is not None:
-            connection.close()
+        connection.close()
 
 
-@router.get("/usuario/{usuario_id}", response_model=list[ResultadoResponse])
-def listar_resultados_usuario(usuario_id: int) -> list[ResultadoResponse]:
+def listar_resultados_usuario(usuario_id: int) -> list[dict]:
     """Devuelve los resultados de un usuario ordenados por fecha."""
-    connection = None
+    connection = get_connection()
     try:
-        connection = get_connection()
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute(
-            """
-            SELECT resultado_id, usuario_id, juego_id, puntaje, fecha_juego
-            FROM Resultados
-            WHERE usuario_id = %s
-            ORDER BY fecha_juego DESC
-            """,
-            (usuario_id,),
-        )
-        resultados = cursor.fetchall()
-        cursor.close()
-        return [ResultadoResponse.model_validate(item) for item in resultados]
-    except mysql.connector.Error as error:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="No se pudo conectar con la base de datos.",
-        ) from error
+        return consultar_resultados(connection, usuario_id)
     finally:
-        if connection is not None:
-            connection.close()
+        connection.close()

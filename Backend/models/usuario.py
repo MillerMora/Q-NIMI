@@ -1,24 +1,53 @@
-"""Modelos de usuarios."""
+"""Consultas SQL relacionadas con usuarios."""
 
-from datetime import datetime
-
-from pydantic import BaseModel, ConfigDict, Field
+from mysql.connector import MySQLConnection
 
 
-class UsuarioCreate(BaseModel):
-    """Datos necesarios para registrar un usuario."""
+def crear_usuario(
+    connection: MySQLConnection,
+    nombre_usuario: str,
+    password: str,
+    tipo_usuario_id: int = 3,
+) -> dict:
+    """Registra un usuario y devuelve sus datos publicos."""
+    cursor = connection.cursor(dictionary=True)
+    try:
+        cursor.execute(
+            """
+            INSERT INTO Usuarios (nombre_usuario, password, tipo_usuario_id)
+            VALUES (%s, %s, %s)
+            """,
+            (nombre_usuario, password, tipo_usuario_id),
+        )
+        connection.commit()
+        cursor.execute(
+            """
+            SELECT usuario_id, nombre_usuario, tipo_usuario_id, fecha_registro
+            FROM Usuarios
+            WHERE usuario_id = %s
+            """,
+            (cursor.lastrowid,),
+        )
+        return cursor.fetchone()
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        cursor.close()
 
-    nombre_usuario: str = Field(min_length=3, max_length=100)
-    password: str = Field(min_length=1, max_length=255)
-    tipo_usuario_id: int = Field(default=3, ge=1)
 
-
-class UsuarioResponse(BaseModel):
-    """Usuario devuelto por la API sin exponer la contrasena."""
-
-    model_config = ConfigDict(from_attributes=True)
-
-    usuario_id: int
-    nombre_usuario: str
-    tipo_usuario_id: int | None
-    fecha_registro: datetime
+def obtener_usuario(connection: MySQLConnection, usuario_id: int) -> dict | None:
+    """Devuelve un usuario sin exponer su contrasena."""
+    cursor = connection.cursor(dictionary=True)
+    try:
+        cursor.execute(
+            """
+            SELECT usuario_id, nombre_usuario, tipo_usuario_id, fecha_registro
+            FROM Usuarios
+            WHERE usuario_id = %s
+            """,
+            (usuario_id,),
+        )
+        return cursor.fetchone()
+    finally:
+        cursor.close()

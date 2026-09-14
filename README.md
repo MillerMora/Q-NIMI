@@ -127,11 +127,11 @@ venv\Scripts\Activate.ps1
 ```
 
 # si no llega a funcionar el comando por restricciones haz esto: (para windows)
-pon este comando en el powerShell como administrador 
+coloca este comando en el powerShell como administrador 
 
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 
-luego toca poner "S" como respuesta "Si" o en el caso que este en ingles "Y" para "Yes" y se solucionara el problema de deshabilitacion
+posterior se tiene que poner "S" como respuesta "Si" o en el caso que este en ingles "Y" para "Yes" y se solucionara el problema de deshabilitacion
 
 
 ### Instalar las dependencias
