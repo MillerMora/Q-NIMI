@@ -126,11 +126,56 @@ source venv/bin/activate
 venv\Scripts\Activate.ps1
 ```
 
+# si no llega a funcionar el comando por restricciones haz esto: (para windows)
+pon este comando en el powerShell como administrador 
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+
+luego toca poner "S" como respuesta "Si" o en el caso que este en ingles "Y" para "Yes" y se solucionara el problema de deshabilitacion
+
+
 ### Instalar las dependencias
 
 ```bash
 pip install -r requirements.txt
 ```
+
+### Inicializar la base de datos
+
+`Backend/connection/BD.py` contiene la configuración Python de la base de
+datos MySQL. Antes de ejecutarla, crea un archivo `.env` dentro de `Backend/`
+con los datos de tu servidor:
+
+```env
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD= "tu contraseña"
+DB_NAME=juego_memoria
+```
+
+Con MySQL encendido, ejecuta desde la carpeta raíz del proyecto:
+
+```bash
+python -m Backend.connection.BD
+```
+
+El módulo crea la base de datos, sus tablas y los catálogos iniciales si aún
+no existen.
+
+### Endpoints disponibles
+
+Con el backend iniciado, la documentación interactiva queda disponible en
+`http://127.0.0.1:8000/docs`.
+
+| Método| Ruta | Función |
+|-------|----------------------------------------|----------------------|
+| `POST`| `/api/usuarios`                        | Registrar un usuario |
+| `GET` | `/api/usuarios/{usuario_id}`           | Consultar un usuario |
+| `GET` | `/api/juegos`                          | Listar juegos        |
+| `GET` | `/api/juegos/{juego_id}`               | Consultar un juego   |
+| `POST`| `/api/resultados`                      | Guardar un puntaje   |
+| `GET` | `/api/resultados/usuario/{usuario_id}` | Consultar puntajes   |
 
 ### Arrancar el backend
 
