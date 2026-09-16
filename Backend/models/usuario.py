@@ -51,3 +51,13 @@ def obtener_usuario(connection: MySQLConnection, usuario_id: int) -> dict | None
         return cursor.fetchone()
     finally:
         cursor.close()
+        
+def verificar_credenciales(connection, nombre_usuario: str, password: str) -> dict | None:
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute(
+        "SELECT * FROM Usuarios WHERE nombre_usuario=%s AND password=%s",
+        (nombre_usuario, password)
+    )
+    usuario = cursor.fetchone()
+    cursor.close()
+    return usuario
