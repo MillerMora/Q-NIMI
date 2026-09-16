@@ -15,7 +15,7 @@
 </head>
 <body>
         <!-- NAVBAR - Barra de navegación fija en la parte superior.-->
-    <header class="navbar">
+        <header class="navbar">
         <div class="contenedor navbar__contenido">
 
             <!-- Marca: logo + nombre del proyecto -->
@@ -29,7 +29,7 @@
             <!-- Enlaces internos: cada uno apunta a una sección diferente del sitio web -->
             <nav aria-label="Navegación principal">
                 <ul class="navbar__enlaces">
-                    <li><a href="#">seccion1</a></li>
+                    <li><a href="./mapa_niveles.html">Mapa de niveles</a></li>
                     <li><a href="#">seccion2</a></li>
                     <li><a href="#">seccion3</a></li>
                     <li><a href="#">seccion4</a></li>
@@ -38,8 +38,17 @@
 
             <!-- Accesos de sesión: por ahora son botones estáticos (sin backend conectado) -->
             <div class="navbar__acciones">
-                <a href="#" class="boton boton--secundario" data-auth-open="login">Iniciar sesión</a>
-                <a href="#" class="boton boton--primario" data-auth-open="register">Registrarse</a>
+                <!-- Se muestra cuando NO hay sesión iniciada -->
+                <div data-navbar-invitado>
+                    <a href="#" class="boton boton--secundario" data-auth-open="login">Iniciar sesión</a>
+                    <a href="#" class="boton boton--primario" data-auth-open="register">Registrarse</a>
+                </div>
+
+                <!-- Se muestra cuando SÍ hay sesión iniciada; oculto por defecto -->
+                <div data-navbar-sesion hidden>
+                    <span class="navbar__saludo">Hola, <strong data-navbar-nombre></strong></span>
+                    <button type="button" class="boton boton--secundario" data-logout>Cerrar sesión</button>
+                </div>
             </div>
 
         </div>
@@ -61,5 +70,6 @@
 
 
     <script src="../views/js/memoria.js" defer></script>
+    <script src="../views/js/autenticacion.js" defer></script>
 </body>
 </html>

@@ -58,35 +58,35 @@ function showQuestionsPanel() {
     questionsPanel.hidden = false;
     currentQuestionIndex = 0;
     Object.keys(questionsAnswers).forEach(key => delete questionsAnswers[key]);
-    
+
     // Limpiar selecciones previas
     questionsPanel.querySelectorAll('.question__option.selected').forEach((opt) => {
         opt.classList.remove('selected');
     });
-    
+
     // Agregar listeners a las opciones
     questionsPanel.querySelectorAll('.question__option').forEach((option) => {
         option.removeEventListener('click', handleOptionClick);
         option.addEventListener('click', handleOptionClick);
     });
-    
+
     // Asignar listeners directamente a los botones
     const btnNext = questionsPanel.querySelector('[data-questions-next]');
     const btnSkip = questionsPanel.querySelector('[data-questions-skip]');
-    
+
     // Usar onclick en lugar de addEventListener para evitar múltiples listeners
     if (btnNext) {
-        btnNext.onclick = function() {
+        btnNext.onclick = function () {
             nextQuestion();
         };
     }
-    
+
     if (btnSkip) {
-        btnSkip.onclick = function() {
+        btnSkip.onclick = function () {
             skipQuestions();
         };
     }
-    
+
     updateQuestionsPanel();
 }
 
@@ -262,19 +262,64 @@ document.addEventListener('keydown', (event) => {
 });
 
 // Manejo del formulario de login
-document.querySelector('#loginForm')?.addEventListener('submit', (event) => {
+document.querySelector('#loginForm')?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    alert('El formulario está listo para conectarse con el backend.');
+    const form = event.target;
+    const nombre_usuario = form.querySelector('[name="usuario"]').value;
+    const password = form.querySelector('[name="contraseña"]').value;
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/usuarios/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre_usuario, password })
+        });
+
+        if (!response.ok) {
+            alert('Usuario o contraseña incorrectos');
+            return;
+        }
+
+        const usuario = await response.json();
+        localStorage.setItem('usuario_id', usuario.usuario_id);
+        localStorage.setItem('nombre_usuario', usuario.nombre_usuario);
+        closeAuthModal();
+        actualizarNavbar();
+        window.location.href = 'seleccion-niveles.html';
+        window.location.href = 'seleccion-niveles.html'; // ajusta a tu vista real
+    } catch (error) {
+        alert('Error de conexión: ' + error.message);
+    }
 });
 
 // Manejo del formulario de registro - mostrar preguntas al crear cuenta
-document.querySelector('[data-create-account]')?.addEventListener('click', (event) => {
+document.querySelector('[data-create-account]')?.addEventListener('click', async (event) => {
     event.preventDefault();
     const registerForm = document.querySelector('#registerForm');
-    if (registerForm.checkValidity()) {
-        showQuestionsPanel();
-    } else {
+    if (!registerForm.checkValidity()) {
         registerForm.reportValidity();
+        return;
+    }
+
+    const nombre_usuario = registerForm.querySelector('[name="usuario"]').value;
+    const password = registerForm.querySelector('[name="contraseña"]').value;
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/usuarios/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre_usuario, password })
+        });
+
+        if (!response.ok) throw new Error('No se pudo crear el usuario');
+
+        const usuario = await response.json();
+        localStorage.setItem('usuario_id', usuario.usuario_id);
+        localStorage.setItem('nombre_usuario', usuario.nombre_usuario);
+        actualizarNavbar();
+        showQuestionsPanel();
+    } catch (error) {
+        alert('Error al registrar: ' + error.message);
     }
 });
 
@@ -283,3 +328,31 @@ document.querySelector('[data-recover-password]')?.addEventListener('click', (ev
     event.preventDefault();
     alert('Función de recuperar contraseña: Pronto podrás recuperar tu contraseña mediante correo electrónico.');
 });
+
+// ==================== NAVBAR DINÁMICO ====================
+
+const navbarInvitado = document.querySelector('[data-navbar-invitado]');
+const navbarSesion = document.querySelector('[data-navbar-sesion]');
+const navbarNombre = document.querySelector('[data-navbar-nombre]');
+
+function actualizarNavbar() {
+    const usuarioId = localStorage.getItem('usuario_id');
+
+    if (usuarioId) {
+        navbarInvitado.hidden = true;
+        navbarSesion.hidden = false;
+        navbarNombre.textContent = localStorage.getItem('nombre_usuario') || 'Usuario';
+    } else {
+        navbarInvitado.hidden = false;
+        navbarSesion.hidden = true;
+    }
+}
+
+document.querySelector('[data-logout]')?.addEventListener('click', () => {
+    localStorage.removeItem('usuario_id');
+    localStorage.removeItem('nombre_usuario');
+    actualizarNavbar();
+});
+
+// Se ejecuta al cargar la página, para reflejar si ya había sesión guardada
+actualizarNavbar();
