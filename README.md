@@ -197,7 +197,7 @@ con los datos de tu servidor:
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
-DB_PASSWORD="tu contraseña"
+DB_PASSWORD=""
 DB_NAME=juego_memoria
 ```
 
